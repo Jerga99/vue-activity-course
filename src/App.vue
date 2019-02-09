@@ -75,6 +75,7 @@
                 <div class="control">
                   <button
                     class="button is-link"
+                    :disabled="!isFormValid"
                     @click="createActivity"
                   >
                     Create Activity
@@ -108,7 +109,7 @@
 
 <script>
 import ActivityItem from '@/components/ActivityItem'
-import { fetchActivities } from '@/api'
+import { fetchActivities, fetchUser, fetchCategories } from '@/api'
 export default {
   name: 'App',
   components: {ActivityItem},
@@ -123,15 +124,9 @@ export default {
         notes: ''
       },
       items: {1: {name: 'Filip'}, 2: {name: 'John'}},
-        user: {
-          name: 'Filip Jerga',
-          id: '-Aj34jknvncx98812',
-        },
+        user: {},
         activities: {},
-        categories: {
-          '1546969049': {text: 'books'},
-          '1546969225': {text: 'movies'}
-        }
+        categories: {}
     }
   },
   beforeCreate () {
@@ -139,24 +134,17 @@ export default {
   },
   created () {
     this.activities = fetchActivities()
+    this.user = fetchUser()
+    this.categories = fetchCategories()
+
+    console.log(this.user)
+    console.log(this.categories)
   },
-  beforeMount () {
-    console.log('beforeMount called!')
-  },
-  mounted () {
-    console.log('mounted called!')
-  },
-  beforeUpdate () {
-    console.log('beforeUpdate called!')
-  },
-  updated () {
-    console.log('updated called!')
-  },
-  beforeDestroy () {
-    console.log('beforeDestroy called!')
-  },
-  destroyed () {
-    console.log('destroyed called!')
+  computed: {
+    isFormValid () {
+      console.log('calling is FormValid!!!')
+      return this.newActivity.title && this.newActivity.notes
+    }
   },
   methods: {
     toggleTextDisplay () {
