@@ -1,0 +1,3 @@
+# Assigment 3
+1. Create functions to fetch user and to fetch categories, same as we did with activities
+2. call these function in created function
