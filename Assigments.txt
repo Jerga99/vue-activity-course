@@ -12,3 +12,6 @@
 2. Don't forget to move funcionality for toggling form
    and send categories as props
 3. Use our new component ActivityCreate in App.vue
+
+#Assigment 6
+1. After activity is created clean and close the form
