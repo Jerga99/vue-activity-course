@@ -70,7 +70,7 @@
 </template>
 
 <script>
-  import { createActivity } from '@/api'
+  import { createActivityAPI } from '@/api'
   export default {
     props: {
       categories: {
