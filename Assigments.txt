@@ -1,3 +1,8 @@
 # Assigment 3
 1. Create functions to fetch user and to fetch categories, same as we did with activities
 2. call these function in created function
+
+# Assigment 4
+1. Create new Computed property called fullAppName
+2. This Computed property should return appName + 'by' + creator
+3. Dislay this computed property in template
