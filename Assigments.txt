@@ -15,3 +15,6 @@
 
 #Assigment 6
 1. After activity is created clean and close the form
+
+#Assigment 7
+1. Separate Navbar from App.vue to component TheNavbar.vue

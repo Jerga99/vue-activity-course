@@ -7,46 +7,32 @@
         </div>
       </div>
     </nav>
-    <nav class="navbar is-white">
-      <div class="container">
-        <div class="navbar-menu">
-          <div class="navbar-start">
-            <a
-              class="navbar-item is-active"
-              href="#"
-            >
-              Newest
-            </a>
-            <a
-              class="navbar-item"
-              href="#"
-            >
-              In Progress
-            </a>
-            <a
-              class="navbar-item"
-              href="#"
-            >
-              Finished
-            </a>
-          </div>
-        </div>
-      </div>
-    </nav>
+    <TheNavbar />
     <section class="container">
       <div class="columns">
         <div class="column is-3">
           <ActivityCreate @activityCreated="addActivity" :categories="categories" />
         </div>
         <div class="column is-9">
-          <div class="box content">
-            <ActivityItem
-              v-for="activity in activities"
-              :key="activity.id"
-              :activity="activity"
-            />
-            <div class="activity-length">Currenly {{ activityLength }} activities</div>
-            <div class="activity-motivation">{{ activityMotivation }}</div>
+          <div class="box content"
+              :class="{fetching: isFetching, 'has-error': error}">
+            <div v-if="error">
+              {{error}}
+            </div>
+            <div v-else>
+              <div v-if="isFetching">
+                Loading ...
+              </div>
+              <ActivityItem
+                v-for="activity in activities"
+                :key="activity.id"
+                :activity="activity"
+              />
+            </div>
+            <div v-if="!isFetching">
+              <div class="activity-length">Currenly {{ activityLength }} activities</div>
+              <div class="activity-motivation">{{ activityMotivation }}</div>
+            </div>
           </div>
         </div>
       </div>
@@ -59,15 +45,18 @@ import Vue from 'vue'
 
 import ActivityItem from '@/components/ActivityItem'
 import ActivityCreate from '@/components/ActivityCreate'
+import TheNavbar from '@/components/TheNavbar'
+
 import { fetchActivities, fetchUser, fetchCategories } from '@/api'
 export default {
   name: 'App',
-  components: {ActivityItem, ActivityCreate},
+  components: {ActivityItem, ActivityCreate, TheNavbar},
   data () {
     return {
       creator: 'Filip Jerga',
       appName: 'Activity Planner',
-      items: {1: {name: 'Filip'}, 2: {name: 'John'}},
+      isFetching: false,
+      error: null,
       user: {},
       activities: {},
       categories: {}
@@ -91,12 +80,15 @@ export default {
     }
   },
   created () {
+    this.isFetching = true
     fetchActivities()
       .then(activities => {
         this.activities = activities
+        this.isFetching = false
       })
       .catch(err => {
-        console.log(err)
+        this.error = err
+        this.isFetching = false
       })
 
     this.user = fetchUser()
@@ -124,6 +116,14 @@ html,body {
 }
 footer {
   background-color: #F2F6FA !important;
+}
+
+.fetching {
+  border: 2px solid orange;
+}
+
+.has-error {
+  border: 2px solid red;
 }
 
 .activity-motivation {
