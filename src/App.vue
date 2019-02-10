@@ -95,7 +95,6 @@ export default {
   },
   methods: {
     addActivity (newActivity) {
-      debugger
       console.log(newActivity)
     }
   }

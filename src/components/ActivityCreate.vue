@@ -98,8 +98,10 @@
         this.isFormDisplayed = !this.isFormDisplayed
       },
       createActivity () {
-        const activity = createActivity(this.newActivity)
-        this.$emit('activityCreated', {...activity})
+        createActivityAPI(this.newActivity)
+          .then(activity => {
+            this.$emit('activityCreated', {...activity})
+          })
       }
     }
   }
