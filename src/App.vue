@@ -100,6 +100,8 @@
               :key="activity.id"
               :activity="activity"
             />
+            <div class="activity-length">Currenly {{ activityLength }} activities</div>
+            <div class="activity-motivation">{{ activityMotivation }}</div>
           </div>
         </div>
       </div>
@@ -134,20 +136,20 @@ export default {
     },
     fullAppName () {
       return this.appName + ' by ' + this.creator
+    },
+    activityLength () {
+      return Object.keys(this.activities).length
+    },
+    activityMotivation () {
+      if (this.activityLength && this.activityLength < 5) {
+        return 'Nice to see some activities (:'
+      } else if (this.activityLength >= 5) {
+        return 'So many activities! Good Job!'
+      } else {
+        return 'No activities, so sad :('
+      }
     }
   },
-  // watch: {
-  //   creator (val) {
-  //     console.log(val)
-  //     debugger
-  //     return this.appName + ' by ' + val
-  //   },
-  //   appName (val) {
-  //     console.log(val)
-  //     debugger
-  //     return val + ' by ' + this.creator
-  //   }
-  // },
   created () {
     this.activities = fetchActivities()
     this.user = fetchUser()
@@ -178,6 +180,14 @@ html,body {
 }
 footer {
   background-color: #F2F6FA !important;
+}
+
+.activity-motivation {
+ float: right;
+}
+
+.activity-length {
+  display: inline-block;
 }
 
 .example-wrapper {
