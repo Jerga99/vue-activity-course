@@ -6,3 +6,9 @@
 1. Create new Computed property called fullAppName
 2. This Computed property should return appName + 'by' + creator
 3. Dislay this computed property in template
+
+# Assigment 5
+1. Move Our form to separate component called ActivityCreate.vue
+2. Don't forget to move funcionality for toggling form
+   and send categories as props
+3. Use our new component ActivityCreate in App.vue
