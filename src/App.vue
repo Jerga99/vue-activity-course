@@ -36,7 +36,7 @@
     <section class="container">
       <div class="columns">
         <div class="column is-3">
-          <ActivityCreate :categories="categories" />
+          <ActivityCreate @activityCreated="addActivity" :categories="categories" />
         </div>
         <div class="column is-9">
           <div class="box content">
@@ -66,9 +66,9 @@ export default {
       creator: 'Filip Jerga',
       appName: 'Activity Planner',
       items: {1: {name: 'Filip'}, 2: {name: 'John'}},
-        user: {},
-        activities: {},
-        categories: {}
+      user: {},
+      activities: {},
+      categories: {}
     }
   },
   computed: {
@@ -94,6 +94,10 @@ export default {
     this.categories = fetchCategories()
   },
   methods: {
+    addActivity (newActivity) {
+      debugger
+      console.log(newActivity)
+    }
   }
 }
 </script>

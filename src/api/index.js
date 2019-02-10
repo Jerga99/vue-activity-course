@@ -23,6 +23,18 @@ export const fetchActivities = () => {
   }
 }
 
+const generateUid = () => Math.floor(new Date() * Math.random())
+
+export const createActivity = (activity) => {
+  activity.id = generateUid()
+  activity.progress = 0
+  activity.createdAt = new Date()
+  activity.updatedAt = new Date()
+
+  return activity
+}
+
+
 export const fetchCategories = () => {
   return {
     '1546969049': {text: 'books', id: '1546969049'},
