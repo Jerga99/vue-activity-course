@@ -91,10 +91,12 @@ export default {
     }
   },
   created () {
-    debugger
     fetchActivities()
       .then(activities => {
         this.activities = activities
+      })
+      .catch(err => {
+        console.log(err)
       })
 
     this.user = fetchUser()
