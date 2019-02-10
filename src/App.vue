@@ -71,6 +71,15 @@
                   />
                 </div>
               </div>
+              <div class="field">
+                <label class="label">Notes</label>
+                <div class="control">
+                  <select v-model="newActivity.category" class="select">
+                    <option disabled value="">Please Select One</option>
+                    <option v-for="category in categories">{{category.text}}</option>
+                  </select>
+                </div>
+              </div>
               <div class="field is-grouped">
                 <div class="control">
                   <button
@@ -122,7 +131,8 @@ export default {
       appName: 'Activity Planner',
       newActivity: {
         title: '',
-        notes: ''
+        notes: '',
+        category: ''
       },
       items: {1: {name: 'Filip'}, 2: {name: 'John'}},
         user: {},
