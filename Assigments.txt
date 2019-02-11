@@ -25,3 +25,16 @@ NOTE: you can use either :class or :style
 2. if progress is <= 0 color it red
 3. if progress is <= 50 color it orange
 4. in all of other cases color it green
+
+#Assigment 9
+1. Create delete function in ActivityItem
+2. If button delete is clicked call this function
+   And emit event "activityDeleted" And pass activity along with event
+3. In App.vue when event is emmited call function handleActivityDelete
+   And console.log activity we want to delete
+
+
+
+
+
+
