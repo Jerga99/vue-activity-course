@@ -4,11 +4,12 @@ import fakeApi from '@/lib/fakeApi'
 const generateUid = () => Math.floor(new Date() * Math.random())
 
 export const fetchActivities = () => {
-  return fakeApi.get('activities')
+  debugger
+  return fakeApi.get('activities', {force: 1})
 }
 
 export const fetchCategories = () => {
-  return fakeApi.get('categories')
+  return fakeApi.get('categories', {force: 1})
 }
 
 export const fetchUser = () => {
@@ -24,7 +25,5 @@ export const createActivityAPI = (activity) => {
   activity.createdAt = new Date()
   activity.updatedAt = new Date()
 
-  return new Promise((resolve, reject) => {
-    resolve(activity)
-  })
+  return fakeApi.post('activities', activity)
 }
