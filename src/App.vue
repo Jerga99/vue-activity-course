@@ -94,7 +94,10 @@ export default {
       })
 
     this.user = fetchUser()
-    this.categories = fetchCategories()
+    fetchCategories()
+      .then(categories => {
+        this.categories = categories
+    })
   },
   methods: {
     addActivity (newActivity) {
