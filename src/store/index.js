@@ -12,9 +12,11 @@ const store = {
     return fakeApi.get('activities', {force: 1})
       .then(activities => {
 
-        Object.keys(activities).forEach((key) => {
-          Vue.set(this.state.activities, key, activities[key])
-        })
+        const keys = Object.keys(activities)
+        debugger;
+        Object.keys(activities).forEach(key =>
+          this.setItem('activities', key, activities[key])
+        )
 
         return activities
       })
@@ -23,9 +25,9 @@ const store = {
   fetchCategories () {
     return fakeApi.get('categories', {force: 1})
       .then(categories => {
-        Object.keys(categories).forEach((key) => {
-          Vue.set(this.state.categories, key, categories[key])
-        })
+        Object.keys(categories).forEach(key =>
+          this.setItem('categories', key, categories[key])
+        )
 
         return categories
       })
@@ -38,18 +40,29 @@ const store = {
     }
   },
 
-  createActivityAPI (activity) {
+  createActivity (activity) {
     activity.id = this.generateUid()
     activity.progress = 0
     activity.createdAt = new Date()
     activity.updatedAt = new Date()
 
     return fakeApi.post('activities', activity)
+      .then(createdActivity => {
+        this.setItem('activities', createdActivity.id, createdActivity)
+      })
   },
 
 
-  deleteActivityAPI (activity) {
+  deleteActivity (activity) {
     return fakeApi.delete('activities', activity)
+      .then(deletedActivity => {
+        Vue.delete(this.state.activities, activity.id)
+        return deletedActivity
+      })
+  },
+
+  setItem (resource, id, item) {
+    Vue.set(this.state[resource], id, item)
   }
 }
 
