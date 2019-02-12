@@ -36,6 +36,7 @@
     },
     methods: {
       changeUpdateState (isUpdate) {
+        debugger
         this.isUpdateActive = isUpdate
       }
     }

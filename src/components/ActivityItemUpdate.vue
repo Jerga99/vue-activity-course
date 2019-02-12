@@ -2,12 +2,12 @@
   <article class="post">
     <div class="activity-title">
       <!-- TODO: Add v-model -->
-      <input v-model="activity.title" type="text" class="input">
       <i class="fas fa-cog activity-settings" @click="isMenuDisplayed = !isMenuDisplayed" />
+      <input v-model="updateActivity.title" type="text" class="input">
     </div>
     <div class="activity-category">
       <!-- TODO: add v-model and iterate categories in option  -->
-      <select v-model="activity.category" class="select">
+      <select v-model="updateActivity.category" class="select">
         <option disabled value="">Please select one</option>
         <option v-for="category in categories"
                 :key="category.id"
@@ -16,7 +16,7 @@
     </div>
     <div class="control activity-notes">
       <!-- TODO: Add v-model here -->
-      <textarea v-model="activity.notes"
+      <textarea v-model="updateActivity.notes"
                 class="textarea"
                 placeholder="Write some notes here" />
     </div>
@@ -29,18 +29,18 @@
       <div class="media-content">
         <div class="content">
           <p>
-            <a href="#">Filip Jerga</a> updated {{ activity.updatedAt | prettyTime }} &nbsp;
+            <a href="#">Filip Jerga</a> updated {{ updateActivity.updatedAt | prettyTime }} &nbsp;
           </p>
         </div>
       </div>
       <div class="media-right">
         <!-- TODO: Add v-model here -->
         <input id="progress"
-               v-model="activity.progress"
+               v-model="updateActivity.progress"
                type="range"
                name="progress"
                min="0" max="100" value="90" step="10">
-        <label for="progress">{{ activity.progress }} %</label>
+        <label for="progress">{{ updateActivity.progress }} %</label>
       </div>
     </div>
     <div v-if="isMenuDisplayed" class="activity-controll">
@@ -68,10 +68,11 @@
     },
     data () {
       return {
-        isMenuDisplayed: false
+        isMenuDisplayed: true,
+        updateActivity: {...this.activity}
       }
     },
-    method: {
+    methods: {
       updateActivity () {
         console.log(this.activity)
       }
@@ -82,6 +83,10 @@
 <style scoped lang="scss">
   .activity-title {
     margin-bottom: 10px;
+
+    > i {
+      margin-bottom: 10px;
+    }
   }
 
   .activity-category {
