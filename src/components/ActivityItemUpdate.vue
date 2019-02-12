@@ -3,11 +3,11 @@
     <div class="activity-title">
       <!-- TODO: Add v-model -->
       <i class="fas fa-cog activity-settings" @click="isMenuDisplayed = !isMenuDisplayed" />
-      <input v-model="updateActivity.title" type="text" class="input">
+      <input v-model="modifiedActivity.title" type="text" class="input">
     </div>
     <div class="activity-category">
       <!-- TODO: add v-model and iterate categories in option  -->
-      <select v-model="updateActivity.category" class="select">
+      <select v-model="modifiedActivity.category" class="select">
         <option disabled value="">Please select one</option>
         <option v-for="category in categories"
                 :key="category.id"
@@ -16,7 +16,7 @@
     </div>
     <div class="control activity-notes">
       <!-- TODO: Add v-model here -->
-      <textarea v-model="updateActivity.notes"
+      <textarea v-model="modifiedActivity.notes"
                 class="textarea"
                 placeholder="Write some notes here" />
     </div>
@@ -29,18 +29,18 @@
       <div class="media-content">
         <div class="content">
           <p>
-            <a href="#">Filip Jerga</a> updated {{ updateActivity.updatedAt | prettyTime }} &nbsp;
+            <a href="#">Filip Jerga</a> updated {{ modifiedActivity.updatedAt | prettyTime }} &nbsp;
           </p>
         </div>
       </div>
       <div class="media-right">
         <!-- TODO: Add v-model here -->
         <input id="progress"
-               v-model="updateActivity.progress"
+               v-model="modifiedActivity.progress"
                type="range"
                name="progress"
                min="0" max="100" value="90" step="10">
-        <label for="progress">{{ updateActivity.progress }} %</label>
+        <label for="progress">{{ modifiedActivity.progress }} %</label>
       </div>
     </div>
     <div v-if="isMenuDisplayed" class="activity-controll">
@@ -53,6 +53,7 @@
 </template>
 
 <script>
+  import store from '@/store'
   import textUtility from '@/mixins/textUtility'
   export default {
     mixins: [textUtility],
@@ -69,12 +70,16 @@
     data () {
       return {
         isMenuDisplayed: true,
-        updateActivity: {...this.activity}
+        modifiedActivity: {...this.activity}
       }
     },
     methods: {
       updateActivity () {
-        console.log(this.activity)
+        debugger
+        store.updateActivity(this.modifiedActivity)
+          .then(() => {
+            this.$emit('toggleUpdate', false)
+          })
       }
     }
   }
