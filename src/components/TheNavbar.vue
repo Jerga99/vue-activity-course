@@ -3,23 +3,25 @@
     <div class="container">
       <div class="navbar-menu">
         <div class="navbar-start">
-          <a
+          <a @click="emitFilter('all')"
             class="navbar-item is-active"
-            href="#"
           >
-            Newest
+            All
           </a>
-          <a
+          <a @click="emitFilter('inprogress')"
             class="navbar-item"
-            href="#"
           >
             In Progress
           </a>
-          <a
+          <a @click="emitFilter('finished')"
             class="navbar-item"
-            href="#"
           >
             Finished
+          </a>
+          <a @click="emitFilter('notstarted')"
+            class="navbar-item"
+          >
+            Not Started
           </a>
         </div>
       </div>
@@ -28,5 +30,18 @@
 </template>
 
 <script>
-  export default {}
+  export default {
+    methods: {
+      emitFilter (filterOption) {
+        this.$emit('filterSelected', filterOption)
+      }
+    }
+  }
 </script>
+
+
+
+
+
+
+

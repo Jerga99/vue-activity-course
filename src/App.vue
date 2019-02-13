@@ -7,7 +7,7 @@
         </div>
       </div>
     </nav>
-    <TheNavbar />
+    <TheNavbar @filterSelected="setFilter"/>
     <section class="container">
       <div class="columns">
         <div class="column is-3">
@@ -25,7 +25,7 @@
               </div>
               <div v-if="isDataLoaded">
                 <ActivityItem
-                  v-for="activity in activities"
+                  v-for="activity in filteredActivities"
                   :key="activity.id"
                   :activity="activity"
                   :categories="categories"
@@ -66,10 +66,18 @@ export default {
       error: null,
       user: {},
       activities,
-      categories
+      categories,
+      filter: 'all'
     }
   },
   computed: {
+    filteredActivities () {
+      if (this.filter === 'all') {
+        return this.activities
+      }
+
+      return this.activities;
+    },
     fullAppName () {
       return this.appName + ' by ' + this.creator
     },
@@ -113,6 +121,11 @@ export default {
     store.fetchCategories()
       .then(categories => {
     })
+  },
+  methods: {
+    setFilter (filterOption) {
+      this.filter = filterOption
+    }
   }
 }
 </script>
