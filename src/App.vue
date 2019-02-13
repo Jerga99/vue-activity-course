@@ -7,11 +7,11 @@
         </div>
       </div>
     </nav>
-    <TheNavbar @filterSelected="setFilter"/>
+    <TheNavbar @filterSelected="setFilter" />
     <section class="container">
       <div class="columns">
         <div class="column is-3">
-          <ActivityCreate :categories="categories"/>
+          <ActivityCreate :categories="categories" />
         </div>
         <div class="column is-9">
           <div class="box content"
@@ -72,9 +72,7 @@ export default {
   },
   computed: {
     filteredActivities () {
-      let filteredActivities = {}
       let condition
-      debugger
 
       if (this.filter === 'all') {
         return this.activities
@@ -82,25 +80,14 @@ export default {
 
       if (this.filter === 'inprogress') {
         condition = (value) => value > 0 && value < 100
-        // condition = function (value) {
-        //   if (value > 0 && value < 100) {
-        //     return true
-        //   } else
-        //   return false
-        // }
-
       } else if (this.filter === 'finished') {
         condition = (value) => value === 100
       } else {
         condition = (value) => value === 0
       }
 
-      filteredActivities = Object.values(this.activities)
-        .filter(activity => {
-          return condition(activity.progress)
-        })
-
-      return filteredActivities;
+      return Object.values(this.activities)
+        .filter(activity => condition(activity.progress))
     },
     fullAppName () {
       return this.appName + ' by ' + this.creator
